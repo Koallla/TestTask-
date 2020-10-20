@@ -5,14 +5,16 @@ import React, { Component } from 'react';
 import styles from './app.module.css';
 // import ContactForm from '../ContactForm/ContactForm';
 import ContactList from '../ContactList/ContactList';
-// import Filter from '../Filter/Filter';
-// import { filterContacts, findToMatch } from '../FilterContact/filterContact';
-import { fetchUsers } from '../../API/Api'
+import Filter from '../Filter/Filter';
+import { filterContacts } from '../FilterContact/filterContact';
+import { fetchUsers } from '../../API/Api';
 
 export default class App extends Component {
   state = {
     contacts: [],
-    // filter: '',
+    filterName: '',
+    filterLastName: '',
+    filterAge: '',
   };
 
   componentDidMount() {
@@ -23,7 +25,9 @@ export default class App extends Component {
     //   this.setState({ contacts: parsedContacts });
     // }
 
-    fetchUsers().then(contactsWorkers => this.setState({contacts : contactsWorkers }));
+    fetchUsers().then(contactsWorkers =>
+      this.setState({ contacts: contactsWorkers }),
+    );
   }
 
   // componentDidUpdate(prevProps, prevState) {
@@ -33,9 +37,9 @@ export default class App extends Component {
   //   }
   // }
 
-  // handleChange = e => {
-  //   this.setState({ [e.target.name]: e.target.value });
-  // };
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   // addContact = contact => {
   //   const findContact = findToMatch(this.state.contacts, contact);
@@ -60,23 +64,31 @@ export default class App extends Component {
   // };
 
   render() {
-    // const { contacts, filter } = this.state;
-    const { contacts } = this.state;
-    // const filteredContacts = filterContacts(contacts, filter);
+    const { contacts, filterName, filterLastName, filterAge } = this.state;
+
     console.log(contacts);
+
+    const filteredContacts = filterContacts(
+      contacts,
+      filterName,
+      filterLastName,
+      filterAge,
+    );
 
     return (
       <div className={styles.container}>
-        <h1 className={styles.title}>Phonebook</h1>
         {/* <ContactForm
           onChange={this.handleChange}
           onAddContact={this.addContact}
         /> */}
-        <h2>Contacts</h2>
-        {/* <Filter value={filter} onChange={this.handleChange} /> */}
+
+        <Filter
+          value={(filterName, filterLastName, filterAge)}
+          onChange={this.handleChange}
+        />
         <ContactList
-          // contacts={filteredContacts}
-          contacts={contacts}
+          contacts={filteredContacts}
+          // contacts={contacts}
           // onDelete={this.deleteContact}
         />
       </div>

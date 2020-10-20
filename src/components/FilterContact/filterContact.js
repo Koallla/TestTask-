@@ -1,6 +1,14 @@
-const filterContacts = (contacts, filters) => {
-  return contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filters.toLowerCase()),
+const filterContacts = (
+  contacts,
+  filterName = '',
+  filterLastName = '',
+  filterAge = '',
+) => {
+  return contacts.filter(
+    contact =>
+      contact.name.toLowerCase().includes(filterName.toLowerCase()) &&
+      contact.lastname.toLowerCase().includes(filterLastName.toLowerCase()) &&
+      contact.age.toString().includes(filterAge),
   );
 };
 const findToMatch = (contacts, contact) => {
