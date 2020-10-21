@@ -6,8 +6,8 @@ import styles from './app.module.css';
 // import ContactForm from '../ContactForm/ContactForm';
 import ContactList from '../ContactList/ContactList';
 import Filter from '../Filter/Filter';
-import { filterContacts } from '../FilterContact/filterContact';
-import { fetchUsers } from '../../API/Api';
+import filterContacts from '../FilterContact/filterContact';
+import fetchUsers from '../../API/Api';
 
 export default class App extends Component {
   state = {
@@ -15,14 +15,17 @@ export default class App extends Component {
     filterName: '',
     filterLastName: '',
     filterAge: '',
+    filterSex: '',
   };
 
   componentDidMount() {
-    // const savedContacts = localStorage.getItem('contacts');
-
-    // if (savedContacts) {
-    //   const parsedContacts = JSON.parse(savedContacts);
-    //   this.setState({ contacts: parsedContacts });
+    // async function fetchUsers() {
+    //   try {
+    //     const response = await axios.get('/user?ID=12345');
+    //     console.log(response);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
     // }
 
     fetchUsers().then(contactsWorkers =>
@@ -30,41 +33,25 @@ export default class App extends Component {
     );
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   const { contacts } = this.state;
-  //   if (prevState.contacts !== contacts) {
-  //     localStorage.setItem('contacts', JSON.stringify(contacts));
-  //   }
-  // }
-
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  // addContact = contact => {
-  //   const findContact = findToMatch(this.state.contacts, contact);
-  //   if (contact.name) {
-  //     // eslint-disable-next-line no-unused-expressions
-  //     findContact
-  //       ? PNotify.alert(`${findContact.name} is already in contacts`)
-  //       : this.setState(prevState => ({
-  //           contacts: [...prevState.contacts, contact],
-  //         }));
-  //   } else {
-  //     PNotify.error({
-  //       text: "'Input name!'",
-  //     });
-  //   }
-  // };
-
-  // deleteContact = id => {
-  //   this.setState(prevState => ({
-  //     contacts: prevState.contacts.filter(contact => contact.id !== id),
-  //   }));
-  // };
+  handleChecked = e => {
+    const { filterSex } = this.state;
+    console.log(filterSex);
+    
+    this.setState({ filterSex: e.target.name });
+  };
 
   render() {
-    const { contacts, filterName, filterLastName, filterAge } = this.state;
+    const {
+      contacts,
+      filterName,
+      filterLastName,
+      filterAge,
+      filterSex,
+    } = this.state;
 
     console.log(contacts);
 
@@ -73,6 +60,7 @@ export default class App extends Component {
       filterName,
       filterLastName,
       filterAge,
+      filterSex,
     );
 
     return (
@@ -81,10 +69,10 @@ export default class App extends Component {
           onChange={this.handleChange}
           onAddContact={this.addContact}
         /> */}
-
         <Filter
-          value={(filterName, filterLastName, filterAge)}
+          value={(filterName, filterLastName, filterAge, filterSex)}
           onChange={this.handleChange}
+          onChecked={this.handleChecked}
         />
         <ContactList
           contacts={filteredContacts}

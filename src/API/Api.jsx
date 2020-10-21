@@ -6,4 +6,4 @@ const fetchUsers = () => {
   return axios.get(url).then(response => response.data);
 };
 
-export { fetchUsers };
+export default fetchUsers;
