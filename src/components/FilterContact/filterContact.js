@@ -1,23 +1,20 @@
 const filterContacts = (
   contacts,
-  filterName = '',
-  filterLastName = '',
-  filterAge = '',
-  filterSex = '',
+  filterName,
+  filterLastName,
+  filterAge,
+  gender,
 ) => {
-  return contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filterName.toLowerCase()) &&
-    contact.lastname.toLowerCase().includes(filterLastName.toLowerCase()) &&
-    contact.age.toString().includes(filterAge) &&
-    filterSex
-      ? contact.sex === filterSex
-      : contact,
+  const filteredContacts = contacts.filter(
+    contact =>
+      contact.name.toLowerCase().includes(filterName.toLowerCase()) &&
+      contact.lastname.toLowerCase().includes(filterLastName.toLowerCase()) &&
+      contact.age.toString().includes(filterAge),
+  );
+
+  return filteredContacts.filter(contact =>
+    gender ? contact.sex === gender : contact,
   );
 };
-// const findToMatch = (contacts, contact) => {
-//   return contacts.find(
-//     element => element.name.toLowerCase() === contact.name.toLowerCase(),
-//   );
-// };
 
 export default filterContacts;

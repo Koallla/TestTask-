@@ -12,10 +12,10 @@ const ContactList = ({ contacts }) =>
             {name} {lastname}
           </tr>
           <tr>
-            <td>Возраст: {age}</td>
+            <td>Возраст:{age}</td>
           </tr>
           <tr>
-            <td>Пол: {sex === 'm' ? 'Мужчина' : 'Женщина'}</td>
+            <td>Пол:{sex === 'm' ? 'Мужчина' : 'Женщина'}</td>
           </tr>
         </tbody>
       ))}

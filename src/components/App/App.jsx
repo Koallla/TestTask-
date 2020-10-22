@@ -15,7 +15,8 @@ export default class App extends Component {
     filterName: '',
     filterLastName: '',
     filterAge: '',
-    filterSex: '',
+    gender: null,
+    // filterSexOn: false,
   };
 
   componentDidMount() {
@@ -33,16 +34,30 @@ export default class App extends Component {
     );
   }
 
+  handleCheck = ({ target }) => {
+    const { value, checked } = target;
+    // const { gender } = this.state;
+
+    console.log('checked', checked);
+    console.log('value', value);
+
+    this.setState({ gender: value });
+  };
+
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleChecked = e => {
-    const { filterSex } = this.state;
-    console.log(filterSex);
-    
-    this.setState({ filterSex: e.target.name });
-  };
+  // handleChecked = e => {
+  //   const { gender } = this.state;
+  //   console.log(gender);
+
+  //   this.setState({ gender: e.target.name });
+
+  //   // this.setState(prevState => ({
+  //   //   prevState.filterSex ? [...prevState.contacts, contact],
+  //   // }));
+  // };
 
   render() {
     const {
@@ -50,35 +65,28 @@ export default class App extends Component {
       filterName,
       filterLastName,
       filterAge,
-      filterSex,
+      gender,
     } = this.state;
-
-    console.log(contacts);
 
     const filteredContacts = filterContacts(
       contacts,
       filterName,
       filterLastName,
       filterAge,
-      filterSex,
+      gender,
     );
+
+    console.log('gender', gender);
 
     return (
       <div className={styles.container}>
-        {/* <ContactForm
-          onChange={this.handleChange}
-          onAddContact={this.addContact}
-        /> */}
         <Filter
-          value={(filterName, filterLastName, filterAge, filterSex)}
+          value={(filterName, filterLastName, filterAge)}
           onChange={this.handleChange}
-          onChecked={this.handleChecked}
+          onCheck={this.handleCheck}
+          gender={gender}
         />
-        <ContactList
-          contacts={filteredContacts}
-          // contacts={contacts}
-          // onDelete={this.deleteContact}
-        />
+        <ContactList contacts={filteredContacts} />
       </div>
     );
   }
