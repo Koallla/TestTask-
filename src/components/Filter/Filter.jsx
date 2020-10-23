@@ -16,13 +16,8 @@ const Filter = ({
   onCheck,
   gender,
 }) => {
-  console.log('gender', gender);
-  // console.log('filterName', filterName);
-  // console.log('filterAge', filterAge);
-  // console.log('onChange', onChange);
-
   return (
-    <div>
+    <div className={styles.filter}>
       <p>Filter</p>
       <input
         className={styles.input_filter}
@@ -52,7 +47,7 @@ const Filter = ({
         <span>Пол</span>
         <label htmlFor="Man">
           <input
-            type="radio"
+            type="checkbox"
             name="gender"
             id="Man"
             checked={gender === Gender.MALE}
@@ -64,7 +59,7 @@ const Filter = ({
 
         <label htmlFor="Women">
           <input
-            type="radio"
+            type="checkbox"
             name="gender"
             id="Women"
             checked={gender === Gender.FEMALE}

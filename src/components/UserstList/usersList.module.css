@@ -1,0 +1,11 @@
+.table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  min-width: 250px;
+  background-color: rgb(231, 231, 231);
+  border-radius: 3px;
+}
+
+.user {
+  border-bottom: black 2px solid;
+}
